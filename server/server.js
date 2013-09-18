@@ -4,7 +4,7 @@
 var express = require('express'),
 	http = require('http'),
 	path = require('path'),
-	async = require('async');
+	fileServer = require('./fileServer');
 
 var app = express(),
 	mode = app.get('env'),
@@ -25,6 +25,8 @@ app.configure(function() {
 app.configure('development', function() {
 	app.use(express.errorHandler());
 });
+
+fileServer(app);
 
 http.createServer(app).listen(app.get('port'), function() {
 	console.log('Express server listening on port', app.get('port'), 'serving files from', buildPath);
