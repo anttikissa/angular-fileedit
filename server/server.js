@@ -3,7 +3,8 @@
  */
 var express = require('express'),
 	http = require('http'),
-	path = require('path');
+	path = require('path'),
+	async = require('async');
 
 var app = express(),
 	mode = app.get('env'),
