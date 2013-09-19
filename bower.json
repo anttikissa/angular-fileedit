@@ -5,7 +5,7 @@
     "jquery": "~1.9.1",
     "modernizr": "~2.6.2",
     "underscore": "~1.5.2",
-    "backbone": "~0.9.10",
+    "backbone": "~1.0.0",
     "requirejs": "~2.1.5",
     "less.js": "~1.4.0-b2",
     "bootstrap": "~3.0.0"
