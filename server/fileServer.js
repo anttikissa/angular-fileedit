@@ -38,37 +38,51 @@ module.exports = function(app) {
 		}
 	}
 
-	app.get('/files', function(req, res) {
-		fs.readdir(rootDir, function(err, filenames) {
-			if (err) throw err;
+	app.get('/files/?*', function(req, res) {
+		var relativePath = req.params[0];
+		var pathname = path.join(rootDir, relativePath);
 
-			filenames = filenames.filter(function(filename) {
-				return filename[0] != '.';
-			});
-
-			async.map(filenames, statFile(rootDir), function(err, stats) {
+		if (fs.statSync(pathname).isDirectory()) {
+			fs.readdir(pathname, function(err, filenames) {
 				if (err) throw err;
 
-				fileContents = [];
-
-				filenames.forEach(function(filename, idx) {
-					if (!stats[idx].isDirectory()) {
-						var filePath = path.join(rootDir, filename);
-						fileContents.push(fs.readFileSync(filePath, 'utf8'));
-					} else {
-						fileContents.push('');
-					}
+				filenames = filenames.filter(function(filename) {
+					return filename[0] != '.';
 				});
 
-				result = filenames.map(function(filename, idx) {
-					var stat = stats[idx];
-					var content = fileContents[idx];
-					//console.log("File content for " + filename + ": " + content);
-					return { name: filename, length: stat.size, content: content };
+				async.map(filenames, statFile(pathname), function(err, stats) {
+					if (err) throw err;
+
+					fileContents = [];
+
+					filenames.forEach(function(filename, idx) {
+						if (!stats[idx].isDirectory()) {
+							var filePath = path.join(pathname, filename);
+							fileContents.push(fs.readFileSync(filePath, 'utf8'));
+						} else {
+							fileContents.push('');
+						}
+					});
+
+					result = filenames.map(function(filename, idx) {
+						var stat = stats[idx];
+						var content = fileContents[idx];
+						//console.log("File content for " + filename + ": " + content);
+						return { name: filename, length: stat.size, content: content };
+					});
+					res.end(JSON.stringify(result));
 				});
-				res.end(JSON.stringify(result));
 			});
-		});
+		} else {
+			fs.readFile(pathname, 'utf8', function(err, result) {
+				if (err) {
+					res.status(404);
+					res.end(err.message);
+				} else {
+					res.end(JSON.stringify({ name: relativePath, content: result }));
+				}
+			});
+		}
 	});
 
 	app.post('/files', function(req, res) {
@@ -87,17 +101,5 @@ module.exports = function(app) {
 					res.end(JSON.stringify({ result: 'ok' }));
 				}
 			});
-	});
-
-	app.get('/files/:id', function(req, res) {
-		var filename = req.params.id;
-		fs.readFile(path.join(rootDir, filename), 'utf8', function(err, result) {
-			if (err) {
-				res.status(404);
-				res.end(err.message);
-			} else {
-				res.end(JSON.stringify({ name: filename, content: result }));
-			}
-		});
 	});
 };
