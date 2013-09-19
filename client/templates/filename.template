@@ -1,3 +1,0 @@
-<a href='#/<%= name %>'>
-	<%= name %> (<%= length %> bytes)
-</a>

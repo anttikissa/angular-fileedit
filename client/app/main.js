@@ -10,7 +10,11 @@ require.config({
 });
 
 var app = {
-	templates: {}
+	templates: {
+		filename: "<a href='#/<%= name %>'>" + 
+			"	<%= name %> (<%= length %> bytes)" + 
+			"</a>"
+	}
 };
 
 function main($, _, Backbone) {
@@ -198,9 +202,6 @@ var Backbone;
 require(['jquery', 'modernizr', 'underscore', 'backbone'], function($, modernizr) {
 	// use app here
 	$('#status').html('If you can read this text, your stack should be alright.');
-	$.ajax('/templates/filename.template').done(function(result) {
-		app.templates.filename = result;
-		main($, _, Backbone);
-	});
+	main($, _, Backbone);
 }); 
 
