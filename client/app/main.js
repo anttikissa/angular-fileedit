@@ -9,17 +9,11 @@ require.config({
 	}
 });
 
-var $;
-var _;
-var Backbone;
-
 var app = {
 	templates: {}
 };
 
-function main() {
-	console.log("underscore", _);
-
+function main($, _, Backbone) {
 	_.extend(app, Backbone.Events);
 
 	var File = Backbone.Model.extend({
@@ -188,7 +182,6 @@ function main() {
 
 	app.files = new Files();
 	window.gf = app.files;
-	console.log("App.files", app.files);
 	app.filesView = new FilesView();
 	app.fileContentView = new FileContentView();
 	app.router = new Workspace();
@@ -198,12 +191,16 @@ function main() {
 	});
 }
 
+// The respective scripts will overwrite these when require'd
+var _;
+var Backbone;
+
 require(['jquery', 'modernizr', 'underscore', 'backbone'], function($, modernizr) {
 	// use app here
 	$('#status').html('If you can read this text, your stack should be alright.');
-	console.log("Fubar!");
 	$.ajax('/templates/filename.template').done(function(result) {
 		app.templates.filename = result;
-		main();
+		main($, _, Backbone);
 	});
 }); 
+
