@@ -10,4 +10,5 @@ require.config({
 require(['jquery', 'modernizr'], function($, modernizr) {
 	// use app here
 	$('#status').html('If you can read this text, your stack should be alright.');
+	console.log("Fubar!");
 }); 

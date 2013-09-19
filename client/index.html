@@ -10,12 +10,38 @@
 	<% } %>
 </head>
 <body>
-	<h1>BoReLESS - Grunt, Bower, RequireJS, &amp; LESS Boilerplate</h1>
-	<div id="status">
-		<p>If you see this, something is wrong with your installation.</p>
+	<div class='container'>
+
+		<ul class='breadcrumb'>
+			<li><a>[root]</a></li>
+			<li><a>dir</a></li>
+			<li><a>file</a></li>
+		</ul>
+
+		<div class='row'>
+			<div class='col-md-4'>
+				<ul class='directory' id='files'>
+				</ul>
+			</div>
+
+			<div class='col-md-8'>
+				<div id='content'>
+					<div>
+						<p class='filename'></p>
+						<textarea></textarea>
+					</div>
+					<div class='buttons'>
+						<button class='save btn'>Save</button>
+						<button class='refresh btn'>Refresh</button>
+						<span class='status'></span>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
 	</div>
-	<footer>
-		<p>Copyright 2013 SC5 Online</p>
-	</footer>
 </body>
 </html>
+
