@@ -22,8 +22,8 @@ require.config({
 
 var app = {
 	templates: {
-		filename: "<a href='#/<%= name %>'>" + 
-			"	<%= name %> (<%= length %> bytes)" + 
+		filename: "<a href='#/<%= name %>'>" +
+			"	<%= name %> (<%= length %> bytes)" +
 			"</a>"
 	}
 };
@@ -49,9 +49,24 @@ function main($, _, Backbone) {
 		idAttribute: 'name'
 	});
 
+	var rootUrl = '/files';
+
+	// A hacky path.join() lookalike
+	function joinPaths(p1, p2) {
+		console.log("joinpaths ", p1, " + ", p2);
+		var result = p1 + ((p1[p1.length - 1] === '/') ? '' : '/') + p2;
+		result = result.replace(/\/\//g, '\/');
+		console.log("== ", result);
+		return result;
+	}
+
 	var Files = Backbone.Collection.extend({
 		model: File,
-		url: '/files'
+
+		initialize: function(options) {
+			options = options || {};
+			this.url = joinPaths(rootUrl, (options.path || ''));
+		}
 	});
 
 	var FilenameView = Backbone.View.extend({
@@ -158,11 +173,15 @@ function main($, _, Backbone) {
 	});
 
 	var FilesView = Backbone.View.extend({
-		el: '#files',
+		tagName: 'ul',
 
-		initialize: function() {
-			this.listenTo(app.files, 'reset', this.addAll);
-			var xhr = app.files.fetch({ reset: true });
+		initialize: function(options) {
+			options = options || {};
+			this.$parent = options.$parent;
+			this.$parent.append(this.$el);
+
+			this.listenTo(this.model, 'reset', this.addAll);
+			var xhr = this.model.fetch({ reset: true });
 			xhr.error(function(xhr) {
 				alert("Error loading files: " + xhr.responseText);
 			});
@@ -179,7 +198,7 @@ function main($, _, Backbone) {
 		addAll: function() {
 			var that = this;
 			this.$el.empty();
-			app.files.each(function(file) {
+			this.model.each(function(file) {
 				that.addOne(file);
 			});
 		}
@@ -195,9 +214,12 @@ function main($, _, Backbone) {
 		}
 	});
 
-	app.files = new Files();
-	window.gf = app.files;
-	app.filesView = new FilesView();
+	app.files = new Files({ path: '/' });
+	app.filesView = new FilesView({ model: app.files, $parent: $('#root') });
+
+	app.files2 = new Files({ path: 'node_modules' });
+	app.files2View = new FilesView({ model: app.files2, $parent: $('#test') });
+
 	app.fileContentView = new FileContentView();
 	app.router = new Workspace();
 
@@ -209,5 +231,5 @@ function main($, _, Backbone) {
 require(['jquery', 'modernizr', 'underscore', 'backbone'],
 	function($, modernizr, _, Backbone) {
 	main($, _, Backbone);
-}); 
+});
 
