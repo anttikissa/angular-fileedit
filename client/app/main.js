@@ -1,11 +1,22 @@
 require.config({
 	baseUrl: 'app',
 
-	paths : {
+	paths: {
 		jquery: '../components/jquery/jquery.min',
 		modernizr: '../components/modernizr/modernizr',
 		underscore: '../components/underscore/underscore',
 		backbone: '../components/backbone/backbone'
+	},
+
+	shim: {
+		'underscore': {
+			exports: '_'
+		},
+
+		'backbone': {
+			deps: ['underscore', 'jquery'],
+			exports: 'Backbone'
+		}
 	}
 });
 
@@ -195,13 +206,8 @@ function main($, _, Backbone) {
 	});
 }
 
-// The respective scripts will overwrite these when require'd
-var _;
-var Backbone;
-
-require(['jquery', 'modernizr', 'underscore', 'backbone'], function($, modernizr) {
-	// use app here
-	$('#status').html('If you can read this text, your stack should be alright.');
+require(['jquery', 'modernizr', 'underscore', 'backbone'],
+	function($, modernizr, _, Backbone) {
 	main($, _, Backbone);
 }); 
 
