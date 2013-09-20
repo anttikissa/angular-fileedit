@@ -1,5 +1,5 @@
 // TODO app.files dependency
-define(['backbone', 'app'], function(Backbone, app) {
+define(['backbone', 'app', 'codemirror'], function(Backbone, app, CodeMirror) {
 	var FileContentView = Backbone.View.extend({
 		el: '#content',
 
@@ -11,6 +11,13 @@ define(['backbone', 'app'], function(Backbone, app) {
 			this.$save = this.$el.find('.save');
 			this.$refresh = this.$el.find('.refresh');
 			this.setModel(null);
+
+			// TODO just drop the textarea, really
+			this.editor = CodeMirror.fromTextArea(this.$textarea[0], {
+				mode: 'text/html'
+			});
+			window.cm = this.editor;
+			console.log(this.editor);
 		},
 
 		events: {
@@ -39,12 +46,15 @@ define(['backbone', 'app'], function(Backbone, app) {
 
 			if (hasModel) {
 				this.$filename.html(this.model.get('name'));
-				this.$textarea.val(this.model.get('content'))
-					.attr('readonly', false);
+				var content = this.model.get('content');
+				this.$textarea.val(content).attr('readonly', false);
+				this.editor.setValue(content);
 			} else {
 				this.$filename.html('(no file)');
-				this.$textarea.val('')
-					.attr('readonly', true);
+				this.$textarea.val('').attr('readonly', true);
+				if (this.editor) {
+					this.editor.setValue('');
+				}
 			}
 
 			this.$save.attr('disabled', !hasModel);
@@ -58,8 +68,11 @@ define(['backbone', 'app'], function(Backbone, app) {
 				// TODO report "saving..." state
 				this.$status.html('Saving...');
 				var that = this;
+				//var content = this.$textarea.val();
+				var content = this.editor.getValue();
+
 				var xhr = this.model.save({
-					content: this.$textarea.val()
+					content: content
 				}, {
 					wait: true
 				});

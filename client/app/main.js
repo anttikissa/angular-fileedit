@@ -5,7 +5,8 @@ require.config({
 		jquery: '../components/jquery/jquery.min',
 		modernizr: '../components/modernizr/modernizr',
 		underscore: '../components/underscore/underscore',
-		backbone: '../components/backbone/backbone'
+		backbone: '../components/backbone/backbone',
+		codemirror: '../components/codemirror/lib/codemirror'
 	},
 
 	shim: {
@@ -16,6 +17,10 @@ require.config({
 		'backbone': {
 			deps: ['underscore', 'jquery'],
 			exports: 'Backbone'
+		},
+
+		'codemirror': {
+			exports: 'CodeMirror'
 		}
 	}
 });
