@@ -1,10 +1,11 @@
+- Add hierarcy
 - Warn if unsaved changes (See:
   http://stackoverflow.com/questions/9872988/prevent-navigating-to-another-view-if-contents-are-unsaved)
 
 - Separate file entries (= [name, length]) from file contents (= [name, content])
   to avoid loading all files on start
 
-- Add hierarcy
+- Fix bug where UTF-8 string representation length and file size disagree
 
 Done:
 
