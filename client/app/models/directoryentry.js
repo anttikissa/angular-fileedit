@@ -1,14 +1,9 @@
 define(['backbone'], function(Backbone) {
-	var File = Backbone.Model.extend({
+	var DirectoryEntry = Backbone.Model.extend({
 		defaults: {
 			name: 'unnamed',
 			length: 0,
-			content: ''
-		},
-
-		isDir: function() {
-			var name = this.get('name');
-			return name[name.length - 1] === '/';
+			type: 'file' // or 'dir'
 		},
 
 		initialize: function() {
@@ -22,5 +17,5 @@ define(['backbone'], function(Backbone) {
 		idAttribute: 'name'
 	});
 
-	return File;
+	return DirectoryEntry;
 });

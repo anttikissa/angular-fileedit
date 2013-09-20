@@ -27,14 +27,14 @@ require.config({
 
 require(
 	['jquery', 'modernizr', 'underscore', 'backbone',
-		'models/file',
+		'models/directoryentry',
 		'collections/directory',
 		'views/filecontentview', 'views/directoryview',
 		'router',
 		'app'
 	],
 	function($, modernizr, _, Backbone,
-		File,
+		DirectoryEntry,
 		Directory,
 		FileContentView, DirectoryView,
 		Router,

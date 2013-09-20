@@ -1,8 +1,9 @@
-define(['backbone', 'util', 'models/file'], function(Backbone, util, File) {
+define(['backbone', 'util', 'models/directoryentry'],
+		function(Backbone, util, DirectoryEntry) {
 	var rootUrl = '/files';
 
 	var Directory = Backbone.Collection.extend({
-		model: File,
+		model: DirectoryEntry,
 
 		initialize: function(options) {
 			options = options || {};
