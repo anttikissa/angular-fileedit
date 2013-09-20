@@ -18,13 +18,23 @@ define(['backbone', 'app', 'codemirror'], function(Backbone, app, CodeMirror) {
 				indentUnit: 4,
 				indentWithTabs: true
 			});
-			window.cm = this.editor;
-			console.log(this.editor);
 		},
 
 		events: {
 			'click .save': 'save',
-			'click .refresh': 'refresh'
+			'click .refresh': 'refresh',
+			'keydown .CodeMirror': 'keydown'
+		},
+
+		keydown: function(ev) {
+			// cmd-s and ctrl-s save
+			if (ev.keyCode == 83) {
+				//console.log("Key down", ev);
+				if (ev.metaKey || ev.ctrlKey) {
+					ev.preventDefault();
+					this.$save.click();
+				}
+			}
 		},
 
 		setFile: function(name) {
