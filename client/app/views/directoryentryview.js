@@ -1,5 +1,5 @@
 define(['backbone', 'underscore', 'util', 'app'], function(Backbone, _, util, app) {
-	var FilenameView = Backbone.View.extend({
+	var DirectoryEntryView = Backbone.View.extend({
 		template: _.template(app.templates.filename),
 
 		initialize: function() {
@@ -21,5 +21,5 @@ define(['backbone', 'underscore', 'util', 'app'], function(Backbone, _, util, ap
 		}
 	});
 
-	return FilenameView;
+	return DirectoryEntryView;
 });

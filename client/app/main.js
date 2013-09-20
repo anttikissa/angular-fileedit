@@ -29,14 +29,14 @@ require(
 	['jquery', 'modernizr', 'underscore', 'backbone',
 		'models/file',
 		'collections/files',
-		'views/filecontentview', 'views/filenameview', 'views/filesview',
+		'views/filecontentview', 'views/filesview',
 		'router',
 		'app'
 	],
 	function($, modernizr, _, Backbone,
 		File,
 		Files,
-		FileContentView, FilenameView, FilesView,
+		FileContentView, FilesView,
 		Router,
 		app) {
 

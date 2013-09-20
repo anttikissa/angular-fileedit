@@ -1,6 +1,6 @@
 define(
-	['backbone', 'views/filenameview', 'collections/files', 'app'],
-	function(Backbone, FilenameView, Files, app) {
+	['backbone', 'views/directoryentryview', 'collections/files', 'app'],
+	function(Backbone, DirectoryEntryView, Files, app) {
 	var FilesView = Backbone.View.extend({
 		tagName: 'ul',
 
@@ -19,8 +19,8 @@ define(
 			});
 		},
 
-		addOne: function(file) {
-			var view = new FilenameView({ model: file });
+		addOne: function(directoryEntry) {
+			var view = new DirectoryEntryView({ model: directoryEntry });
 			this.$el.append(view.render().el);
 
 //			if (file.isDir() && file.get('name') === 'node_modules/' ) {
@@ -32,8 +32,8 @@ define(
 		addAll: function() {
 			var that = this;
 			this.$el.empty();
-			this.model.each(function(file) {
-				that.addOne(file);
+			this.model.each(function(directoryEntry) {
+				that.addOne(directoryEntry);
 			});
 		}
 	});
