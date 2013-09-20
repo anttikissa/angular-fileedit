@@ -8,6 +8,7 @@
     "backbone": "~1.0.0",
     "requirejs": "~2.1.5",
     "less.js": "~1.4.0-b2",
-    "bootstrap": "~3.0.0"
+    "bootstrap": "~3.0.0",
+    "codemirror": "~3.16.0"
   }
 }
