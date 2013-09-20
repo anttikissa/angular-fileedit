@@ -22,8 +22,8 @@ require.config({
 
 var app = {
 	templates: {
-		filename: "<a href='#/<%= name %>'>" +
-			"	<%= name %> (<%= length %> bytes)" +
+		filename: "<a href='#<%= path %>'>\n" +
+			"    <%= name %><% if (!isDir) { %>    (<%= length %> bytes) <% } %>\n" +
 			"</a>"
 	}
 };
@@ -36,6 +36,11 @@ function main($, _, Backbone) {
 			name: 'unnamed',
 			length: 0,
 			content: ''
+		},
+
+		isDir: function() {
+			var name = this.get('name');
+			return name[name.length - 1] === '/';
 		},
 
 		initialize: function() {
@@ -53,8 +58,10 @@ function main($, _, Backbone) {
 
 	// A hacky path.join() lookalike
 	function joinPaths(p1, p2) {
-		var result = p1 + ((p1[p1.length - 1] === '/') ? '' : '/') + p2 + '/';
+		console.log('joinPaths', p1, '+', p2);
+		var result = p1 + ((p1[p1.length - 1] === '/') ? '' : '/') + p2;
 		result = result.replace(/\/+/g, '\/');
+		console.log('result', result);
 		return result;
 	}
 
@@ -77,8 +84,14 @@ function main($, _, Backbone) {
 		tagName: 'li',
 
 		render: function() {
-			var json = this.model.toJSON();
-			this.$el.html(this.template(this.model.toJSON()));
+			var data = this.model.toJSON();
+			// TODO ugly, store path as a separate piece of data
+			var parentPath = this.model.collection.url.replace('/files', '');
+			_.extend(data, {
+				isDir: this.model.isDir(),
+				path: joinPaths(parentPath, this.model.get('name'))
+			});
+			this.$el.html(this.template(data));
 			return this;
 		}
 	});
@@ -191,6 +204,11 @@ function main($, _, Backbone) {
 		addOne: function(file) {
 			var view = new FilenameView({ model: file });
 			this.$el.append(view.render().el);
+
+			if (file.isDir() && file.get('name') === 'node_modules/' ) {
+				var files2 = new Files({ path: file.get('name') });
+				var files2View = new FilesView({ model: files2, $parent: view.$el });
+			}
 		},
 
 		addAll: function() {
@@ -214,9 +232,6 @@ function main($, _, Backbone) {
 
 	app.files = new Files({ path: '/' });
 	app.filesView = new FilesView({ model: app.files, $parent: $('#root') });
-
-	app.files2 = new Files({ path: 'node_modules' });
-	app.files2View = new FilesView({ model: app.files2, $parent: $('#test') });
 
 	app.fileContentView = new FileContentView();
 	app.router = new Workspace();
