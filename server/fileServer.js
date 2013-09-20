@@ -13,7 +13,7 @@ var path = require('path'),
 //     content: '...'
 // }
 //
-// GET /files          return list of files (with their contents!)
+// GET /files          return list of files
 // GET /files/<file>   return file contents
 // PUT /files/<file>   change file contents
 //
@@ -42,39 +42,22 @@ module.exports = function(app) {
 		var relativePath = req.params[0];
 		var pathname = path.join(rootDir, relativePath);
 
-		if (fs.statSync(pathname).isDirectory()) {
+		var isDirectory = fs.statSync(pathname).isDirectory();
+		if (isDirectory) {
 			fs.readdir(pathname, function(err, filenames) {
-				if (err) throw err;
-
-				filenames = filenames.filter(function(filename) {
-					return filename[0] != '.';
+				result = [];
+				filenames.forEach(function(filename) {
+					if (filename[0] == '.')
+						return;
+					var stats = fs.statSync(path.join(pathname, filename));
+					result.push({
+						name: filename,
+						length: stats.isDirectory() ? 0 : stats.size,
+						type: stats.isDirectory() ? 'dir' : 'file'
+					});
 				});
 
-				async.map(filenames, statFile(pathname), function(err, stats) {
-					if (err) throw err;
-
-					fileContents = [];
-
-					filenames.forEach(function(filename, idx) {
-						if (stats[idx].isDirectory()) {
-							// TODO dirty, do this properly
-							filenames[idx] += '/';
-							fileContents.push('');
-							stats[idx].size = 0;
-						} else {
-							var filePath = path.join(pathname, filename);
-							fileContents.push(fs.readFileSync(filePath, 'utf8'));
-						}
-					});
-
-					result = filenames.map(function(filename, idx) {
-						var stat = stats[idx];
-						var content = fileContents[idx];
-						//console.log("File content for " + filename + ": " + content);
-						return { name: filename, length: stat.size, content: content };
-					});
-					res.end(JSON.stringify(result));
-				});
+				res.end(JSON.stringify(result));
 			});
 		} else {
 			fs.readFile(pathname, 'utf8', function(err, result) {
