@@ -22,7 +22,7 @@ var path = require('path'),
 
 // Takes express app.
 module.exports = function(app) {
-	var rootDir = path.join(__dirname, '.');
+	var rootDir = path.join(__dirname, process.env['ROOTDIR'] || '.');
 
 	app.use(express.bodyParser());
 
