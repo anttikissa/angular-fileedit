@@ -28,33 +28,8 @@ var app = {
 	}
 };
 
-function main($, _, Backbone) {
+function main($, _, Backbone, File, Files) {
 	_.extend(app, Backbone.Events);
-
-	var File = Backbone.Model.extend({
-		defaults: {
-			name: 'unnamed',
-			length: 0,
-			content: ''
-		},
-
-		isDir: function() {
-			var name = this.get('name');
-			return name[name.length - 1] === '/';
-		},
-
-		initialize: function() {
-			this.on('change:content', this.nameChanged);
-		},
-
-		nameChanged: function(what, to) {
-			this.set('length', to.length);
-		},
-
-		idAttribute: 'name'
-	});
-
-	var rootUrl = '/files';
 
 	// A hacky path.join() lookalike
 	function joinPaths(p1, p2) {
@@ -64,15 +39,6 @@ function main($, _, Backbone) {
 		console.log('result', result);
 		return result;
 	}
-
-	var Files = Backbone.Collection.extend({
-		model: File,
-
-		initialize: function(options) {
-			options = options || {};
-			this.url = joinPaths(rootUrl, (options.path || ''));
-		}
-	});
 
 	var FilenameView = Backbone.View.extend({
 		template: _.template(app.templates.filename),
@@ -115,6 +81,7 @@ function main($, _, Backbone) {
 		},
 
 		setFile: function(name) {
+			// TODO app.files dependency
 			var model = app.files.findWhere({ name: name });
 			this.setModel(model);
 		},
@@ -241,8 +208,10 @@ function main($, _, Backbone) {
 	});
 }
 
-require(['jquery', 'modernizr', 'underscore', 'backbone'],
-	function($, modernizr, _, Backbone) {
-	main($, _, Backbone);
+require(['jquery', 'modernizr', 'underscore', 'backbone', 'models/file', 'collections/files'],
+	function($, modernizr, _, Backbone, File, Files) {
+		console.log("File ", File);
+		console.log("Files ", Files);
+	main($, _, Backbone, File, Files);
 });
 
