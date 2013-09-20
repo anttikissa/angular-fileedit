@@ -56,11 +56,14 @@ module.exports = function(app) {
 					fileContents = [];
 
 					filenames.forEach(function(filename, idx) {
-						if (!stats[idx].isDirectory()) {
+						if (stats[idx].isDirectory()) {
+							// TODO dirty, do this properly
+							filenames[idx] += '/';
+							fileContents.push('');
+							stats[idx].size = 0;
+						} else {
 							var filePath = path.join(pathname, filename);
 							fileContents.push(fs.readFileSync(filePath, 'utf8'));
-						} else {
-							fileContents.push('');
 						}
 					});
 
