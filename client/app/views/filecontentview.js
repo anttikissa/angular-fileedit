@@ -14,7 +14,9 @@ define(['backbone', 'app', 'codemirror'], function(Backbone, app, CodeMirror) {
 
 			// TODO just drop the textarea, really
 			this.editor = CodeMirror.fromTextArea(this.$textarea[0], {
-				mode: 'text/html'
+				mode: 'text/html',
+				indentUnit: 4,
+				indentWithTabs: true
 			});
 			window.cm = this.editor;
 			console.log(this.editor);
