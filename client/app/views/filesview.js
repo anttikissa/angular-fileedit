@@ -23,10 +23,10 @@ define(
 			var view = new FilenameView({ model: file });
 			this.$el.append(view.render().el);
 
-			if (file.isDir() && file.get('name') === 'node_modules/' ) {
-				var files2 = new Files({ path: file.get('name') });
-				var files2View = new FilesView({ model: files2, $parent: view.$el });
-			}
+// 			if (file.isDir() && file.get('name') === 'node_modules/' ) {
+// 				var files2 = new Files({ path: file.get('name') });
+// 				var files2View = new FilesView({ model: files2, $parent: view.$el });
+// 			}
 		},
 
 		addAll: function() {
