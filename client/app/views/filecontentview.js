@@ -28,7 +28,7 @@ define(['backbone', 'app', 'codemirror'], function(Backbone, app, CodeMirror) {
 
 		keydown: function(ev) {
 			// cmd-s and ctrl-s save
-			if (ev.keyCode == 83) {
+			if (ev.keyCode === 83) {
 				//console.log("Key down", ev);
 				if (ev.metaKey || ev.ctrlKey) {
 					ev.preventDefault();
