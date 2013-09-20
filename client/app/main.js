@@ -28,20 +28,20 @@ require.config({
 require(
 	['jquery', 'modernizr', 'underscore', 'backbone',
 		'models/file',
-		'collections/files',
-		'views/filecontentview', 'views/filesview',
+		'collections/directory',
+		'views/filecontentview', 'views/directoryview',
 		'router',
 		'app'
 	],
 	function($, modernizr, _, Backbone,
 		File,
-		Files,
-		FileContentView, FilesView,
+		Directory,
+		FileContentView, DirectoryView,
 		Router,
 		app) {
 
-	app.files = new Files({ path: '/' });
-	app.filesView = new FilesView({ model: app.files, $parent: $('#root') });
+	app.rootDirectory = new Directory({ path: '/' });
+	new DirectoryView({ model: app.rootDirectory, $parent: $('#root') });
 
 	app.fileContentView = new FileContentView();
 	app.router = new Router();

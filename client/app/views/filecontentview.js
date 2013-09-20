@@ -38,7 +38,7 @@ define(['backbone', 'app', 'codemirror'], function(Backbone, app, CodeMirror) {
 		},
 
 		setFile: function(name) {
-			var model = app.files.findWhere({ name: name });
+			var model = app.rootDirectory.findWhere({ name: name });
 			this.setModel(model);
 		},
 

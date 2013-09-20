@@ -1,7 +1,7 @@
 define(
-	['backbone', 'views/directoryentryview', 'collections/files', 'app'],
-	function(Backbone, DirectoryEntryView, Files, app) {
-	var FilesView = Backbone.View.extend({
+	['backbone', 'views/directoryentryview', 'collections/directory', 'app'],
+	function(Backbone, DirectoryEntryView, Directory, app) {
+	var DirectoryView = Backbone.View.extend({
 		tagName: 'ul',
 
 		initialize: function(options) {
@@ -38,5 +38,5 @@ define(
 		}
 	});
 
-	return FilesView;
+	return DirectoryView;
 });
