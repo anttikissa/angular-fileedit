@@ -1,7 +1,7 @@
 define(['backbone'], function(Backbone) {
 	var DirectoryEntry = Backbone.Model.extend({
 		defaults: {
-			name: 'unnamed',
+			name: '',
 			length: 0,
 			type: 'file' // or 'dir'
 		},

@@ -40,8 +40,8 @@ require(
 		Router,
 		app) {
 
-	app.rootDirectory = new Directory({ path: '/' });
-	new DirectoryView({ model: app.rootDirectory, $parent: $('#root') });
+	var root = new Directory({ path: '/' });
+	app.directoryView = new DirectoryView({ model: root, $parent: $('#root') });
 
 	app.fileContentView = new FileContentView();
 	app.router = new Router();

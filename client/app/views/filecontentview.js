@@ -1,5 +1,6 @@
 // TODO app.files dependency
-define(['backbone', 'app', 'codemirror'], function(Backbone, app, CodeMirror) {
+define(['backbone', 'app', 'codemirror', 'models/file'],
+		function(Backbone, app, CodeMirror, File) {
 	var FileContentView = Backbone.View.extend({
 		el: '#content',
 
@@ -38,8 +39,12 @@ define(['backbone', 'app', 'codemirror'], function(Backbone, app, CodeMirror) {
 		},
 
 		setFile: function(name) {
-			var model = app.rootDirectory.findWhere({ name: name });
-			this.setModel(model);
+			if (name === null) {
+				this.setModel(null);
+			} else {
+				var model = new File({ name: name });
+				this.setModel(model);
+			}
 		},
 
 		setModel: function(model) {
