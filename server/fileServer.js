@@ -42,33 +42,42 @@ module.exports = function(app) {
 		var relativePath = req.params[0];
 		var pathname = path.join(rootDir, relativePath);
 
-		var isDirectory = fs.statSync(pathname).isDirectory();
-		if (isDirectory) {
-			fs.readdir(pathname, function(err, filenames) {
-				result = [];
-				filenames.forEach(function(filename) {
-					if (filename[0] == '.')
-						return;
-					var stats = fs.statSync(path.join(pathname, filename));
-					result.push({
-						name: filename,
-						length: stats.isDirectory() ? 0 : stats.size,
-						type: stats.isDirectory() ? 'dir' : 'file'
+		fs.stat(pathname, function(err, result) {
+			if (err) {
+				res.status(404);
+				res.end(err.message);
+				return;
+			}
+			var isDirectory = result.isDirectory();
+			if (isDirectory) {
+				fs.readdir(pathname, function(err, filenames) {
+					result = [];
+					filenames.forEach(function(filename) {
+						if (filename[0] == '.')
+							return;
+						var stats = fs.statSync(path.join(pathname, filename));
+						result.push({
+							name: filename,
+							length: stats.isDirectory() ? 0 : stats.size,
+							type: stats.isDirectory() ? 'dir' : 'file'
+						});
 					});
-				});
 
-				res.end(JSON.stringify(result));
-			});
-		} else {
-			fs.readFile(pathname, 'utf8', function(err, result) {
-				if (err) {
-					res.status(404);
-					res.end(err.message);
-				} else {
-					res.end(JSON.stringify({ name: relativePath, content: result }));
-				}
-			});
-		}
+					res.end(JSON.stringify(result));
+				});
+			} else {
+				console.log("Reading file...");
+				fs.readFile(pathname, 'utf8', function(err, result) {
+					console.log("readfile", pathname, "err", err, "result", result);
+					if (err) {
+						res.status(404);
+						res.end(err.message);
+					} else {
+						res.end(JSON.stringify({ name: relativePath, content: result }));
+					}
+				});
+			}
+		});
 	});
 
 	app.post('/files', function(req, res) {
