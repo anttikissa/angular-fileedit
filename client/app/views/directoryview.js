@@ -23,10 +23,12 @@ define(
 			var view = new DirectoryEntryView({ model: directoryEntry });
 			this.$el.append(view.render().el);
 
-//			if (file.isDir() && file.get('name') === 'node_modules/' ) {
-//				var files2 = new Files({ path: file.get('name') });
-//				var files2View = new FilesView({ model: files2, $parent: view.$el });
-//			}
+			console.log("DirectoryEntry ", directoryEntry);
+			if (directoryEntry.get('type') === 'dir' || directoryEntry.get('name') === 'node_modules' ) {
+				console.log("MAUGHT");
+				var files2 = new Directory({ path: directoryEntry.get('name') });
+				var files2View = new DirectoryView({ model: files2, $parent: view.$el });
+			}
 		},
 
 		addAll: function() {
