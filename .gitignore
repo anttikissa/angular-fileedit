@@ -6,3 +6,5 @@ server/node_modules
 client/components
 .project
 npm-debug.log
+test
+
