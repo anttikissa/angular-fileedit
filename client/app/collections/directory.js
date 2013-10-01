@@ -7,7 +7,8 @@ define(['backbone', 'util', 'models/directoryentry'],
 
 		initialize: function(options) {
 			options = options || {};
-			this.url = util.joinPaths(rootUrl, (options.path || ''));
+			this.path = (options.path || '');
+			this.url = util.joinPaths(rootUrl, this.path);
 		}
 	});
 

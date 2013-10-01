@@ -1,6 +1,6 @@
 define(
-	['backbone', 'views/directoryentryview', 'collections/directory', 'app'],
-	function(Backbone, DirectoryEntryView, Directory, app) {
+	['backbone', 'views/directoryentryview', 'collections/directory', 'app', 'util'],
+	function(Backbone, DirectoryEntryView, Directory, app, util) {
 	var DirectoryView = Backbone.View.extend({
 		tagName: 'ul',
 
@@ -23,11 +23,13 @@ define(
 			var view = new DirectoryEntryView({ model: directoryEntry });
 			this.$el.append(view.render().el);
 
-			console.log("DirectoryEntry ", directoryEntry);
-			if (directoryEntry.get('type') === 'dir' || directoryEntry.get('name') === 'node_modules' ) {
-				console.log("MAUGHT");
-				var files2 = new Directory({ path: directoryEntry.get('name') });
-				var files2View = new DirectoryView({ model: files2, $parent: view.$el });
+			if (directoryEntry.get('type') === 'dir') {
+				var name = directoryEntry.get('name');
+				var dirPath = util.joinPaths(this.model.path, name);
+				var directory = new Directory({ path: dirPath });
+				var directoryView = new DirectoryView(
+					{ model: directory, $parent: view.$el }
+				);
 			}
 		},
 
