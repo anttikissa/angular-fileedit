@@ -4,8 +4,8 @@ define(['underscore', 'backbone'], function(_, Backbone) {
 	var app = {
 		templates: {
 			filename:
-				"<a data-type='<%= type %>' href='#<%= path %>'>\n" +
-				"    <%= name %><% if (type === 'file') { %>    (<%= length %> bytes) <% } %>\n" +
+				"<a data-type='<%= type %>' href='#<%= path %>'>" +
+				"<%= name %><% if (type === 'file') { %>    (<%= length %> bytes) <% } %>" +
 				"</a>"
 		}
 	};

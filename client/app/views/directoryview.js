@@ -9,8 +9,6 @@ define(
 			this.$parent = options.$parent;
 			this.$parent.append(this.$el);
 
-//			this.$el.css('border', '1px solid black');
-
 			this.listenTo(this.model, 'reset', this.addAll);
 			var xhr = this.model.fetch({ reset: true });
 			xhr.error(function(xhr) {
@@ -26,10 +24,7 @@ define(
 			this.$el.append(view.render().el);
 
 			if (directoryEntry.get('type') === 'dir') {
-				console.log("Encountered directory entry.", directoryEntry.toJSON());
-
 				if (directoryEntry.get('expanded')) {
-					console.log("Expanding it.");
 					var name = directoryEntry.get('name');
 					var dirPath = util.joinPaths(this.model.path, name);
 					var directory = new Directory({ path: dirPath });

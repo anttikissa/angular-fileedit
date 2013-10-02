@@ -8,11 +8,10 @@ define(['backbone'], function(Backbone) {
 		},
 
 		initialize: function() {
-			this.on('change:content', this.nameChanged);
+			this.on('change:content', this.contentChanged);
 		},
 
-		nameChanged: function(what, to) {
-			console.log("nameChanged");
+		contentChanged: function(what, to) {
 			this.set('length', to.length);
 		},
 
