@@ -14,6 +14,14 @@ textarea {
 	font: 14px/18px Courier;
 }
 
+ul {
+	padding: 0;
+}
+
+li {
+	margin-left: 20px;
+}
+
 .container, .content {
 /* 	border: 1px solid #eee; */
 }
@@ -35,16 +43,21 @@ textarea {
 	margin-left: 4px;
 }
 
-#content {
-/* 	padding: 40px 0; */
-/* 	color: blue; */
-}
-
-/*  Directory  */
+// Directory
 
 #root ul {
 	list-style-type: none;
 }
+
+#root li > a[data-type=dir]:before {
+//	content: '[+]';
+}
+
+#root li.expanded > a[data-type=dir]:before {
+//	content: '[-]';
+}
+
+// Editor
 
 .CodeMirror {
 	border: 1px solid #888;

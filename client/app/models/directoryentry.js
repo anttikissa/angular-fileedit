@@ -3,7 +3,8 @@ define(['backbone'], function(Backbone) {
 		defaults: {
 			name: '',
 			length: 0,
-			type: 'file' // or 'dir'
+			type: 'file', // or 'dir'
+			expanded: true // applies if it's a dir
 		},
 
 		initialize: function() {
@@ -11,6 +12,7 @@ define(['backbone'], function(Backbone) {
 		},
 
 		nameChanged: function(what, to) {
+			console.log("nameChanged");
 			this.set('length', to.length);
 		},
 
