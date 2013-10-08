@@ -39,6 +39,13 @@ define(
 				view.directoryView = new DirectoryView(
 					{ model: directory, $parent: view.$el }
 				);
+
+				// Expand directory if it leads to the currently open file.
+				var currentPath = window.location.hash.replace('#', '');
+				var dirPath = view.getAbsolutePath();
+				if (currentPath.indexOf(dirPath) != -1) {
+					directoryEntry.set('expanded', true);
+				}
 			}
 		},
 
