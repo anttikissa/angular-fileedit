@@ -30,11 +30,15 @@ define(
 
 			tagName: 'li',
 
-			render: function() {
+			getAbsolutePath: function() {
 				// extend directory entry's data with the complete path to it
 				var parentPath = this.model.collection.url.replace('/files', '');
 				var path = util.joinPaths(parentPath, this.model.get('name'));
-				var data = _.extend(this.model.toJSON(), { path: path });
+				return path;
+			},
+
+			render: function() {
+				var data = _.extend(this.model.toJSON(), { path: this.getAbsolutePath() });
 
 				this.$el.html(this.template(data));
 
