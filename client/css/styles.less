@@ -60,7 +60,11 @@ li {
 }
 
 #root li > a[data-type=dir]:before {
-//	content: '[+]';
+	content: '[+] ';
+}
+
+#root li.expanded > a[data-type=dir]:before {
+	content: '[-] ';
 }
 
 #root li > a[data-type=dir] {
@@ -69,10 +73,6 @@ li {
 
 #root li > a[data-type=dir]:after {
 	content: '/';
-}
-
-#root li.expanded > a[data-type=dir]:before {
-//	content: '[-]';
 }
 
 @normal-file-border: white;

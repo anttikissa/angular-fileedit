@@ -10,8 +10,13 @@ define(
 			},
 
 			expandedChange: function() {
-				// TODO figure out what now
-				console.log("Expanded changed!", this);
+				if (this.model.get('expanded')) {
+					this.$el.addClass('expanded');
+					this.directoryView.show();
+				} else {
+					this.$el.removeClass('expanded');
+					this.directoryView.hide();
+				}
 			},
 
 			events: {
@@ -20,16 +25,24 @@ define(
 
 			clickDir: function(ev) {
 				ev.preventDefault();
+				this.model.set('expanded', !this.model.get('expanded'));
 			},
 
 			tagName: 'li',
 
 			render: function() {
+				// extend directory entry's data with the complete path to it
 				var parentPath = this.model.collection.url.replace('/files', '');
 				var path = util.joinPaths(parentPath, this.model.get('name'));
-
 				var data = _.extend(this.model.toJSON(), { path: path });
+
 				this.$el.html(this.template(data));
+
+				if (this.directoryView && this.model.get('expanded')) {
+					var dirView = this.directoryView.render().$el;
+					this.$el.append(dirView);
+				}
+
 				return this;
 			}
 		});

@@ -4,7 +4,7 @@ define(['backbone'], function(Backbone) {
 			name: '',
 			length: 0,
 			type: 'file', // or 'dir'
-			expanded: true // applies if it's a dir
+			expanded: false // applies only if it's a dir
 		},
 
 		initialize: function() {
@@ -12,6 +12,7 @@ define(['backbone'], function(Backbone) {
 		},
 
 		contentChanged: function(what, to) {
+			// TODO sets length in characters, should be in bytes
 			this.set('length', to.length);
 		},
 

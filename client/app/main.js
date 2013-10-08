@@ -42,6 +42,7 @@ require(
 
 	var root = new Directory({ path: '/' });
 	app.directoryView = new DirectoryView({ model: root, $parent: $('#root') });
+	app.directoryView.show();
 
 	app.fileContentView = new FileContentView();
 	app.router = new Router();
