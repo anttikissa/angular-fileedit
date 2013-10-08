@@ -1,13 +1,18 @@
-- Add hierarcy
 - Warn if unsaved changes (See:
   http://stackoverflow.com/questions/9872988/prevent-navigating-to-another-view-if-contents-are-unsaved)
-
-- Separate file entries (= [name, length]) from file contents (= [name, content])
-  to avoid loading all files on start
-
 - Fix bug where UTF-8 string representation length and file size disagree
+- Fix bug where file size is not updated when file is saved (the directory
+  hierarcy has do idea when files are saved, someone should handle the syncing
+  of File and DirectoryEntry that represent the same file)
+- Make it possible to rename files and find out how Backbone's RESTfulness copes
+  with that!
+- Click on a directory in the breadcrumb.  It will "load" the directory as a
+  file.  Try to save the file.  Ugly error is reported.  (EISDIR)
 
 Done:
 
 - Add router
+- Add hierarcy
+- Separate file entries (= [name, length]) from file contents (= [name, content])
+  to avoid loading all files on start
 
