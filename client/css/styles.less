@@ -60,11 +60,15 @@ li {
 }
 
 #root li > a[data-type=dir]:before {
-	content: '[+] ';
+//	content: '[+] ';
 }
 
-#root li.expanded > a[data-type=dir]:before {
-	content: '[-] ';
+//#root li.expanded > a[data-type=dir]:before {
+//	content: '[-] ';
+//}
+
+#root li.expanded > a[data-type=dir] {
+	font-weight: bold;
 }
 
 #root li > a[data-type=dir] {
