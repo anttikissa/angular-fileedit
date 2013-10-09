@@ -4,19 +4,13 @@ require.config({
 	paths: {
 		jquery: '../components/jquery/jquery.min',
 		modernizr: '../components/modernizr/modernizr',
-		underscore: '../components/underscore/underscore',
-		backbone: '../components/backbone/backbone',
-		codemirror: '../components/codemirror/lib/codemirror'
+		codemirror: '../components/codemirror/lib/codemirror',
+		angular: '../components/angular/angular'
 	},
 
 	shim: {
-		'underscore': {
-			exports: '_'
-		},
-
-		'backbone': {
-			deps: ['underscore', 'jquery'],
-			exports: 'Backbone'
+		'angular': {
+			exports: 'angular'
 		},
 
 		'codemirror': {
@@ -26,21 +20,10 @@ require.config({
 });
 
 require(
-	['jquery', 'modernizr', 'underscore', 'backbone',
-		'models/directoryentry',
-		'collections/directory',
-		'views/filecontentview', 'views/directoryview',
-		'router',
-		'app'
-	],
-	function($, modernizr, _, Backbone,
-		DirectoryEntry,
-		Directory,
-		FileContentView, DirectoryView,
-		Router,
-		app) {
+	['jquery', 'modernizr', 'angular', 'app'],
+	function($, modernizr, angular, app) {
 
-	var root = new Directory({ path: '/' });
+/*	var root = new Directory({ path: '/' });
 	app.directoryView = new DirectoryView({ model: root, $parent: $('#root') });
 	app.directoryView.show();
 
@@ -49,6 +32,7 @@ require(
 
 	app.once('initialLoad', function() {
 		Backbone.history.start();
-	});
+	}); */
+	console.log("Got angular", angular);
 });
 

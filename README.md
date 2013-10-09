@@ -1,6 +1,9 @@
 # Backbone-fileedit
 
-Learning Backbone through writing a simple file manager.
+Learning AngularJS through writing a simple file manager.
+
+Backend is the same as in the Backbone version
+(https://github.com/anttisykari/backbone-fileedit).
 
 Built on https://github.com/SC5/grunt-boreless-boilerplate
 
