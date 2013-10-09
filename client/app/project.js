@@ -1,24 +1,21 @@
 // Globals, so long as they are needed
 
-//var $resource;
+var angular;
 
-//define(['angular'], function(angular) {
-	angular.module('project', ['ngResource']);
+angular.module('project', ['ngResource']);
 
-	function FilesCtrl($scope) {
-		/*
-		var Files = $resource('/files/:filename/', { filename: '@name' });
+function FilesCtrl($scope, $resource) {
 
-		var files = Files.query(function() {
-			console.log("Queried files", files);
-		});*/
+	console.log("resource", $resource);
+	var Files = $resource('/files/:filename/', { filename: '@name' });
 
-		$scope.files = [
-			{ name: 'foo.xyz', length: 123 },
-			{ name: 'bar.txt', length: 55 }
-		];
-	}
+	$scope.files = Files.query();
 
-	console.log("App!");
-//	return {};
-//});
+//	$scope.files = [
+//		{ name: 'foo.xyz', length: 123 },
+//		{ name: 'bar.txt', length: 55 }
+//	];
+}
+
+console.log("App!");
+

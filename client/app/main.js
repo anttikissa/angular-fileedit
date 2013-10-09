@@ -24,6 +24,11 @@ require(
 	['jquery', 'modernizr', 'angular', 'angular-resource', 'project'],
 	function($, modernizr, angular, angularResource, project) {
 */
-	console.log("Got angular", angular);
+
+var angular;
+var $resource;
+
+console.log("Got angular", angular);
+console.log("Got resource", $resource);
 //});
 
