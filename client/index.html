@@ -21,7 +21,12 @@
 
 		<div class='row'>
 			<div class='col-md-4'>
-				<div id='root'>
+				<div id='root' ng-controller='FilesCtrl'>
+					<ul>
+						<li ng-repeat='file in files'>
+							<a data-type='file' href='#'>{{file.name}} ({{file.length}} bytes)</a>
+						</li>
+					</ul>
 				</div>
 			</div>
 

@@ -20,8 +20,8 @@ require.config({
 });
 
 require(
-	['jquery', 'modernizr', 'angular', 'app'],
-	function($, modernizr, angular, app) {
+	['jquery', 'modernizr', 'angular', 'app', 'files'],
+	function($, modernizr, angular, app, files) {
 
 /*	var root = new Directory({ path: '/' });
 	app.directoryView = new DirectoryView({ model: root, $parent: $('#root') });
