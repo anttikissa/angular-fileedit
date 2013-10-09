@@ -8,6 +8,7 @@
   with that!
 - Click on a directory in the breadcrumb.  It will "load" the directory as a
   file.  Try to save the file.  Ugly error is reported.  (EISDIR)
+- Don't even try to edit binary files (find out somehow that they are)
 
 Done:
 
