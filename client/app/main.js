@@ -1,11 +1,12 @@
-require.config({
+/*require.config({
 	baseUrl: 'app',
 
 	paths: {
 		jquery: '../components/jquery/jquery.min',
 		modernizr: '../components/modernizr/modernizr',
 		codemirror: '../components/codemirror/lib/codemirror',
-		angular: '../components/angular/angular'
+		angular: '../components/angular/angular',
+		'angular-resource': '../components/angular-resource/angular-resource'
 	},
 
 	shim: {
@@ -20,19 +21,9 @@ require.config({
 });
 
 require(
-	['jquery', 'modernizr', 'angular', 'app', 'files'],
-	function($, modernizr, angular, app, files) {
-
-/*	var root = new Directory({ path: '/' });
-	app.directoryView = new DirectoryView({ model: root, $parent: $('#root') });
-	app.directoryView.show();
-
-	app.fileContentView = new FileContentView();
-	app.router = new Router();
-
-	app.once('initialLoad', function() {
-		Backbone.history.start();
-	}); */
+	['jquery', 'modernizr', 'angular', 'angular-resource', 'project'],
+	function($, modernizr, angular, angularResource, project) {
+*/
 	console.log("Got angular", angular);
-});
+//});
 

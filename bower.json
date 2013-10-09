@@ -9,6 +9,7 @@
     "less.js": "~1.4.0-b2",
     "bootstrap": "~3.0.0",
     "codemirror": "~3.16.0",
-    "angular": "~1.0.8"
+    "angular": "~1.0.8",
+    "angular-resource": "~1.0.8"
   }
 }

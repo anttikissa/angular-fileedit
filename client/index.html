@@ -1,13 +1,15 @@
 <!DOCTYPE HTML>
-<html ng-app>
+<html ng-app='project'>
 <head>
 	<meta charset="utf-8" />
 	<title>Antti's Backbone.js learning experience</title>
 	<link href="<%= stylesheetFile %>" rel="<%= stylesheetLanguage %>" type="text/css"/>
-	<script data-main="<%= scriptFile %>" src="<%= scriptLoader %>"></script>
-	<% for (var i = 0; i < scripts.length; i++) { %>
-	<script src="<%= scripts[i] %>"></script>
-	<% } %>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular-resource.min.js"></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/less.js/1.4.1/less.min.js'></script>
+
+	<script src='app/main.js'></script>
+	<script src='app/project.js'></script>
 </head>
 <body>
 	<div class='container'>
